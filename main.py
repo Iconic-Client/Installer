@@ -6,8 +6,8 @@ from os import path
 path = os.getenv('APPDATA')
 pathversions = path + '\.minecraft\\versions'
 pathiconicfolder = pathversions + '\Iconic-1.8.8'
-urljar = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.jar"
-urljson = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.json"
+urljar = ""
+urljson = ""
 
 print ("Checking if Minecraft versions folder exists: " + str(os.path.isdir(pathversions)))
 if str(os.path.isdir(pathversions)) == "True":
