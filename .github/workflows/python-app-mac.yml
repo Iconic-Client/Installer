@@ -5,9 +5,9 @@ name: Build (Mac)
 
 on:
   push:
-    branches: [ main ]
+    branches: [ mac ]
   pull_request:
-    branches: [ main ]
+    branches: [ mac ]
 
 jobs:
   build:
