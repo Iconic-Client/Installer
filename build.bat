@@ -1,1 +1,1 @@
-pyinstaller -n IconicClient-Installer -i icon.ico --clean -y --osx-bundle-identifier tk.iconicclient.installer --onefile main.py
+pyinstaller -n IconicClient-Installer -i icon.ico --clean -y --onefile --noconsole main.py
