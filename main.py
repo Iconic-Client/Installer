@@ -4,9 +4,8 @@ import os
 import os.path
 import urllib.request
 
-path = os.getenv('APPDATA')
-pathversions = path + '\.minecraft\\versions'
-pathiconicfolder = pathversions + '\Iconic-1.8.8'
+pathversions = '~/Library/Application support/minecraft/versions/'
+pathiconicfolder = pathversions + '/Iconic-1.8.8'
 urljar = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.jar"
 urljson = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.json"
 
