@@ -1,3 +1,4 @@
+from fileinput import close
 from tkinter import font
 import PySimpleGUI as sg
 import os
@@ -44,4 +45,7 @@ while True:
         for line in popupContent:
             decoded_line = line.decode("utf-8")
             print(decoded_line)
+          
+    if event == sg.WIN_CLOSED:
+        break
 window.close()
