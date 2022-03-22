@@ -5,21 +5,32 @@ import os
 import os.path
 import urllib.request
 
+def resource_path(relative_path):
+    """ Get absolute path to resource, works for dev and for PyInstaller """
+    try:
+        # PyInstaller creates a temp folder and stores path in _MEIPASS
+        base_path = sys._MEIPASS
+    except Exception:
+        base_path = os.path.abspath(".")
+
+    return os.path.join(base_path, relative_path)
+
 path = os.getenv('APPDATA')
 pathversions = path + '\.minecraft\\versions'
 pathiconicfolder = pathversions + '\Iconic-1.8.8'
 urljar = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.jar"
 urljson = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.json"
 popupContent = urllib.request.urlopen("https://download.iconicclient.tk/changelog.txt")
-
+logoImage = resource_path("picture.png/picture.png")
+iconImage = resource_path("icon.ico/icon.ico")
 
 sg.theme("Material2")
-layout = [[sg.Image(r'C:\\Users\sidcd\Downloads\\IconicClient-Installer\\picture.png',size=(75,75))],
+layout = [[sg.Image(logoImage, size=(75,75))],
           [sg.Text('Installing Iconic Client', font='Arial', k="test")],
           [sg.Output(size=(50, 10), background_color='black', font='Consolas 8')],
           [sg.Button('Install')],
           [sg.Button('Changelog')]]
-window = sg.Window('Iconic Client Installer', layout, margins=(200, 200), element_justification='c', icon=r'C:\\Users\sidcd\Downloads\\IconicClient-Installer\\icon.ico')
+window = sg.Window('Iconic Client Installer', layout, margins=(200, 200), element_justification='c', icon=iconImage)
 
 while True:  
     event, values = window.read()
@@ -50,4 +61,7 @@ while True:
 
     if event == sg.WIN_CLOSED:
         break
+
+
+
 window.close()

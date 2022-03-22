@@ -1,1 +1,1 @@
-pyinstaller -n IconicClient-Installer -i icon.ico --clean -y --onefile --noconsole main.py
+pyinstaller -n IconicClient-Installer -i src/icon.ico --clean -y --onefile --noconsole IconicClient-Installer.spec
