@@ -27,7 +27,7 @@ jobs:
         pip install pyinstaller
     - name: Build with pyinstaller
       run: |
-        build
+        pyinstaller -n IconicClient-Installer -i icon.ico --clean -y --onefile --noconsole IconicClient-Installer.spec
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
