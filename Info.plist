@@ -1,8 +1,0 @@
-<plist version="1.0">
-<dict>
-    <key>CFBundleIdentifier</key>
-    <string>tk.iconicclient.client.installer</string>
-    <key>CFBundleName</key>
-    <string>IconicClientInstaller</string>
-</dict>
-</plist>
