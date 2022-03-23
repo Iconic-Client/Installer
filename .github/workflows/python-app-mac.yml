@@ -13,7 +13,7 @@ jobs:
   build:
 
     runs-on: macos-latest
-
+    if: "!contains(github.event.commits[0].message, '[ci-skip]')"
     steps:
     - uses: actions/checkout@v2
     - name: Set up Python 3.10
@@ -27,12 +27,17 @@ jobs:
         pip install pyinstaller
     - name: Build with pyinstaller
       run: |
-        pyinstaller -n IconicClient-Installer -i icon.ico --clean -y --onedir --windowed --noconsole main.py
+        pyi-makespec -n IconicClient-Installer -i icon.ico --add-data 'picture.png:picture.png' 'icon.ico:icon.ico' --osx-bundle-identifier tk.iconicclient.client.installer --clean -y --onefile --noconsole main.py
+        pyinstaller -n IconicClient-Installer -i icon.ico --add-data 'picture.png:picture.png' 'icon.ico:icon.ico' --osx-bundle-identifier tk.iconicclient.client.installer --clean -y --onefile --noconsole IconicClient-Installer.spec
+    - name: Sign .app file
+      run: |
+        cd dist
+        codesign -s "IconicClientInstaller" IconicClient-Installer.app
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
         # Artifact name
         name: IconicClient-Installer
         # A file, directory or wildcard pattern that describes what to upload
-        path: ./dist
+        path: ./dist/IconicClient-Installer.app
         # The desired behavior if no files are found using the provided path.
