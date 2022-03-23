@@ -1,3 +1,4 @@
+from calendar import TextCalendar
 from fileinput import close
 from tkinter import font
 import PySimpleGUI as sg
@@ -28,12 +29,19 @@ sg.theme("Material2")
 layout = [[sg.Image(logoImage, size=(75,75))],
           [sg.Text('Installing Iconic Client', font='Arial', k="test")],
           [sg.Output(size=(50, 10), background_color='black', font='Consolas 8')],
-          [sg.Button('Install')],
-          [sg.Button('Changelog')]]
-window = sg.Window('Iconic Client Installer', layout, margins=(200, 200), element_justification='c', icon=iconImage)
+          [sg.Button('Install')]]
+window = sg.Window('Iconic Client Installer', layout, margins=(200, 200), element_justification='c', icon=iconImage, finalize=True)
+
+def printAfter(Text):
+    for line in Text:
+        decodedText = line.decode("utf-8")
+        print(decodedText)
+
+printAfter(popupContent)
 
 while True:  
     event, values = window.read()
+
     if event in (None, 'Install'):
         if str(os.path.isdir(pathversions)) == "True":
             print('Started installing Iconic Client 1.8.8')
@@ -54,14 +62,8 @@ while True:
         else:
             print('Error Code 1: You might not have installed Minecraft. Contact us on our Discord server.')
 
-    if event in (None, 'Changelog'):
-        for line in popupContent:
-            decoded_line = line.decode("utf-8")
-            print(decoded_line)
-
     if event == sg.WIN_CLOSED:
         break
-
 
 
 window.close()
