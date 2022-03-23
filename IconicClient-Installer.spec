@@ -41,6 +41,6 @@ exe = EXE(pyz,
 
 app = BUNDLE(exe,
           name='IconicClient-Installer.app',
-          icon=icon.ico,
-          bundle_identifier=tk.iconicclient.client.installer
+          icon='icon.ico',
+          bundle_identifier='tk.iconicclient.client.installer'
         )
