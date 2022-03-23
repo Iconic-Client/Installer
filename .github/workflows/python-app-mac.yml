@@ -28,10 +28,6 @@ jobs:
     - name: Build with pyinstaller
       run: |
         pyinstaller -n IconicClient-Installer -i icon.ico --osx-bundle-identifier tk.iconicclient.client.installer --clean -y --onefile --noconsole IconicClient-Installer.spec
-    - name: Sign .app file
-      run: |
-        cd dist
-        codesign -s "IconicClientInstaller" IconicClient-Installer.app
     - name: Upload a Build Artifact
       uses: actions/upload-artifact@v3.0.0
       with:
