@@ -27,8 +27,7 @@ jobs:
         pip install pyinstaller
     - name: Build with pyinstaller
       run: |
-        pyi-makespec -n IconicClient-Installer -i icon.ico --add-data 'picture.png:picture.png' 'icon.ico:icon.ico' --osx-bundle-identifier tk.iconicclient.client.installer --onefile --noconsole main.py
-        pyinstaller -n IconicClient-Installer -i icon.ico --add-data 'picture.png:picture.png' 'icon.ico:icon.ico' --osx-bundle-identifier tk.iconicclient.client.installer --clean -y --onefile --noconsole IconicClient-Installer.spec
+        pyinstaller -n IconicClient-Installer -i icon.ico --osx-bundle-identifier tk.iconicclient.client.installer --clean -y --onefile --noconsole IconicClient-Installer.spec
     - name: Sign .app file
       run: |
         cd dist
