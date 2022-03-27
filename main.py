@@ -1,6 +1,6 @@
 from tkinter import font
 import PySimpleGUI as sg
-import os
+import os, sys
 import os.path
 import urllib.request
 
@@ -42,9 +42,11 @@ pathversions = path + '\.minecraft\\versions'
 pathiconicfolder = pathversions + '\Iconic-1.8.8'
 urljar = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.jar"
 urljson = "https://iconicdownloadproxy.netlify.app/Iconic-1.8.8.json"
-changelogText = urllib.request.urlopen("https://download.iconicclient.tk/changelog.txt")
+changelogText = urllib.request.urlopen("https://download.iconicclient.tk/changelog.txt").read().decode("utf-8")
 logoImage = resource_path("picture.png/picture.png")
 iconImage = resource_path("icon.ico/icon.ico")
+version = '2.1.0'
+latest_version = urllib.request.urlopen("https://download.iconicclient.tk/installer-version.txt").read().decode("utf-8")
 
 # pysimplegui Variables
 
@@ -61,19 +63,30 @@ changelogLayout = [
             [sg.Text('', k='changelogElement')]
 ]
 
+aboutLayout = [
+            [sg.Text('Iconic Client Installer - ' + version)],
+            [sg.Button('Check For Updates', k='UpdatesCheck')],
+            [sg.Text('', k='versionStatus')]
+]
+
 layout = [[sg.Image(logoImage, size=(75,75))],
           [sg.Text('Iconic Client Installer', font='Arial', k="test")],
-          [sg.TabGroup([[sg.Tab('Install', installerLayout), sg.Tab('Update', updaterLayout), sg.Tab('Changelog', changelogLayout)]])]]
+          [sg.TabGroup([[sg.Tab('Install', installerLayout), sg.Tab('Update', updaterLayout), sg.Tab('Changelog', changelogLayout), sg.Tab('About', aboutLayout, element_justification='c')]])]]
 
 window = sg.Window('Iconic Client Installer', layout, margins=(50, 10), element_justification='c', icon=iconImage, finalize=True)
 
 # Execute after gui open
 
 def setText(Text):
-    decodedText = Text.read().decode("utf-8")
-    window['changelogElement'].update(value=decodedText)
+    window['changelogElement'].update(value=changelogText)
 
 setText(changelogText)
+
+def checkForUpdates():
+    if latest_version == version:
+        window['versionStatus'].update(value='No updates needed.')
+    else:
+        window['versionStatus'].update(value='New version found: ' + latest_version + '\nPlease redownload the installer to apply the new update.')
 
 # While loop, listening for events 
 
@@ -95,7 +108,10 @@ while True:
         if str(os.path.isdir(pathiconicfolder)) == "True":
             updateIC()
         else:
-            print('Error Code 3: Folder does not exists. Did you mean to install?')      
+            print('Error Code 3: Folder does not exists. Did you mean to install?')     
+    
+    if event in ('UpdatesCheck', 'Check For Updates'):
+        checkForUpdates()
 
     if event == sg.WIN_CLOSED:
         break
