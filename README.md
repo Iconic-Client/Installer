@@ -1,6 +1,6 @@
 <h1 align="center">Iconic Client Installer</h1>
 
-The installer/updater of Iconic Client.
+The installer/updater of Iconic Client. (DISCONTINUED)
 
 [Download](https://download.iconicclient.tk)
 
